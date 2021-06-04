@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pyOpenSSL="*"
+flasgger = "*"
+pre-commit = "*"
+python-dotenv = "*"
+pytest = "*"
+requests = "*"
+jsonschema = "*"
+email-validator = "*"
+Flask-JWT-Extended = "*"
+Flask = "*"
+Flask-Inputs = "*"
+DateTime = "*"
+pyopenssl = "*"
+gunicorn = "*"
+flask-oidc = "*"
+cloudant="*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+api = "flask run --cert=adhoc"

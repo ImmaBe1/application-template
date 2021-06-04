@@ -1,0 +1,44 @@
+summary: Public endpoint to load the profile info of a user.
+tags:
+  - APIv1.0
+security:
+  - bearerAuth: []
+parameters:
+  - name: username
+    in: path
+    schema:
+      type: string
+    required: true
+    description: The identifier of the user.
+responses:
+  '200':     
+    description: OK
+    content:
+      application/json:
+        example: {
+          "count" : 1,
+          "data": [{"foo": "bar"}],
+          "success": True,
+          "error":{}
+        }
+  '401':
+    description: UNAUTHORIZED (User is not in access group)
+    content:
+      application/json:
+        example: {"error": "Unauthorized to access endpoint"}
+  '404':
+    description: NOT FOUND
+    content:
+      application/html:
+        example: NOT FOUND
+  '410':
+    description: GONE (Token is not valid)
+    content:
+      application/json:
+        example: {"error": "Access token not valid. Please try reauthentication."}
+  '500':
+    description: INTERNAL SERVER ERROR
+    content:
+      application/json:
+        example: {"error": <insert error here>}
+    
