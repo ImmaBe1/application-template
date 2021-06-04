@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}">
+    <title>ImmaBe UI Template</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}" />
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <section class="hero is-primary is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{ url_for('site.index') }}" class="navbar-item">
+                                Home
+                            </a>
+                            <a href="{{ url_for('site.privacy') }}" class="navbar-item">
+                                Privacy Statement
+                            </a>
+                            <a href="{{ url_for('account.myhome') }}" class="navbar-item">
+                                Profile
+                            </a>
+                            <a href="{{ url_for('account.login') }}" class="navbar-item">
+                                Login
+                            </a>
+                            <a href="{{ url_for('account.register') }}" class="navbar-item">
+                                Sign Up
+                            </a>
+                            <a href="{{ url_for('account.logout') }}" class="navbar-item">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+               {% block content %}
+               {% endblock %}
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

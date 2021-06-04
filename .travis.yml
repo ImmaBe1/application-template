@@ -1,0 +1,9 @@
+language: python
+python:
+  - 3.9
+before_install:
+  - sudo apt-get update
+install:
+  - sudo apt-get -y install curl unzip jq
+script: 
+  - bash ci_cd.sh

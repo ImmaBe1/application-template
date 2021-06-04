@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title" style="margin-bottom:2rem">
+  Welcome customer!
+</h1>
+<h2 class="subtitle">
+  <div>Access your bills and requests at your convenience.</div>
+  <div>Easy authentication and authorization.</div>
+  <div style="margin-top:15px">
+    Bills:
+    <a href="{{ url_for('bill.view') }}"><u>View</u></a> 
+    <a href="{{ url_for('bill.pay') }}"><u>Pay</u></a>
+  </div>
+  <div>
+    Requests:
+    <a href="{{ url_for('request.show_all__requests') }}"><u>View</u></a> 
+    <a href="{{ url_for('request.cancel_a_request') }}"><u>Cancel</u></a>
+    <a href="{{ url_for('request.view_a_request') }}"><u>Select one</u></a>
+  </div>
+</h2>
+{% endblock %}
