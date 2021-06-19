@@ -1,4 +1,4 @@
-#https://www.docker.com/blog/swarmweek-advanced-orchestration-docker-swarm/
+#Reference: https://www.docker.com/blog/swarmweek-advanced-orchestration-docker-swarm/
 
 version: "3"
 
@@ -14,9 +14,11 @@ networks:
       - subnet: 172.23.0.0/16
       
 services:
-  #rng service node > rng network
+  #rng service node 
   rng:
     build: rng
+    deploy:
+      replicas: 10
     #labels:
     #  loadbalancer: rng-lb
     networks:
@@ -24,7 +26,7 @@ services:
         aliases:
           - rng-be
 
-  #rng-lb > default network (so that worker can reach rng service node - see worker.py), rng network
+  #rng service load balancer
   rng-lb:
     depends_on:
     - rng
@@ -38,17 +40,19 @@ services:
         aliases: 
           - rng
 
-  #hasher service node > hasher network
+  #hasher service node 
   hasher:
     build: hasher
     #labels:
     #  loadbalancer: rng-lb
+    deploy:
+      replicas: 10
     networks:
       appntw:
         aliases:
           - hasher-be
 
-  #hasher-lb > default network (so that worker can reach hasher service node - see worker.py), hasher network
+  #hasher service load balancer
   hasher-lb:
     depends_on:
     - hasher
@@ -62,7 +66,7 @@ services:
         aliases: 
           - hasher
 
-  #webui > default network
+  #webui service node
   webui:
     build: webui
     ports:
@@ -72,15 +76,17 @@ services:
     networks:
       appntw:
 
-  #redis > default network
+  #redis service node
   redis:
     image: redis
     networks:
       appntw:
 
-  #worker > default network
+  #worker service node
   worker:
     build: worker
+    deploy:
+      replicas: 5
     networks:
       appntw:
 
