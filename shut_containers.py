@@ -3,7 +3,7 @@
 import os
 import subprocess
 
-project_name = os.path.basename(os.path.realpath("."))
+folder = os.path.basename(os.path.realpath("."))
 
 # Get all existing services for this application.
 containers_data = subprocess.check_output([
@@ -21,10 +21,10 @@ for container_id in containers_data.decode().split('\n'):
     ])
    
 #remove the network and images(need to add checks and dynamic values)
-for i in ["dockercoins_appntw"]:
+for i in ["{}_appntw".format(folder)]:
     print("shutting down network {}".format(i))
     subprocess.check_output([ "docker", "network", "rm", "{}".format(i)])
 
-for i in ["dockercoins_webui", "dockercoins_hasher", "dockercoins_rng", "dockercoins_worker", "redis"]:
+for i in ["{}_webui".format(folder), "{}_hasher".format(folder), "{}_rng".format(folder), "{}_worker".format(folder), "redis"]:
     print("removing image {}".format(i))
     subprocess.check_output([ "docker", "rmi", "{}".format(i)])
