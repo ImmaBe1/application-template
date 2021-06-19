@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 
-# FIXME: hardcoded
-PORT="80"
-
 import os
 import subprocess
 

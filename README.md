@@ -1,9 +1,8 @@
-# Application Template
+# Infrastructure
 
-Template used for any application developed at ImmaBe
+- To build the infrastructure: `docker-compose up -d`
 
-It's open-source and can be used for your personal or corporate project. 
+- To scale it:  `docker-compose scale <service>=<number_of_instances>`
+                `<service> = rng, worker, hasher`
 
-We merge any pull requests that make this template better.
-
-For any questions, contact us at: developers@immabe.io
+- To purge it and start fresh: `python3 .\shut_containers.py`
