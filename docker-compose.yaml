@@ -1,0 +1,86 @@
+#https://www.docker.com/blog/swarmweek-advanced-orchestration-docker-swarm/
+
+version: "3"
+
+#volumes:
+#  myapp:
+
+networks:
+  appntw:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.23.0.0/16
+      
+services:
+  #rng service node > rng network
+  rng:
+    build: rng
+    #labels:
+    #  loadbalancer: rng-lb
+    networks:
+      appntw:
+        aliases:
+          - rng-be
+
+  #rng-lb > default network (so that worker can reach rng service node - see worker.py), rng network
+  rng-lb:
+    depends_on:
+    - rng
+    build: nginxbalancer_rng
+    ports:
+      - 80:80
+  #  volumes:
+  #    - myapp:/home/node/app
+    networks:
+      appntw:
+        aliases: 
+          - rng
+
+  #hasher service node > hasher network
+  hasher:
+    build: hasher
+    #labels:
+    #  loadbalancer: rng-lb
+    networks:
+      appntw:
+        aliases:
+          - hasher-be
+
+  #hasher-lb > default network (so that worker can reach hasher service node - see worker.py), hasher network
+  hasher-lb:
+    depends_on:
+    - hasher
+    build: nginxbalancer_hasher
+    ports:
+      - 8080:80
+  #  volumes:
+  #    - myapp:/home/node/app
+    networks:
+      appntw:
+        aliases: 
+          - hasher
+
+  #webui > default network
+  webui:
+    build: webui
+    ports:
+    - 80
+    #volumes:
+    #- "./webui/files/:/files/"
+    networks:
+      appntw:
+
+  #redis > default network
+  redis:
+    image: redis
+    networks:
+      appntw:
+
+  #worker > default network
+  worker:
+    build: worker
+    networks:
+      appntw:
+
